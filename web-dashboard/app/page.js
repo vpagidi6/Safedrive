@@ -1,0 +1,41 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import MainLayout from '@/components/layout/MainLayout';
+import DashboardScreen from '@/components/dashboard/DashboardScreen';
+import { getDistractions } from '@/lib/api/distractions';
+
+export default function Home() {
+  const [distractions, setDistractions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchDistractions() {
+      try {
+        const data = await getDistractions();
+        setDistractions(data);
+      } catch (error) {
+        console.error('Error loading distractions:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchDistractions();
+  }, []);
+
+  if (loading) {
+    return (
+      <MainLayout>
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-xl">Loading...</div>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  return (
+    <MainLayout>
+      <DashboardScreen distractions={distractions} />
+    </MainLayout>
+  );
+}
