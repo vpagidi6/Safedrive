@@ -30,7 +30,10 @@ if not os.path.exists('num.txt'):
     with open('num.txt', 'w') as f:
         f.write('0')
 
-model = keras.models.load_model('distractedDrivingModel')
+# EC2 Update - Use environment variable for model path
+# model = keras.models.load_model('distractedDrivingModel')
+MODEL_PATH = os.getenv('MODEL_PATH', 'distractedDrivingModel')
+model = keras.models.load_model(MODEL_PATH)
 
 category_map = {'c0': 'Safe driving', 
                 'c1': 'Texting - right', 
