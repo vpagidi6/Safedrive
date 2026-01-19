@@ -63,12 +63,12 @@ def health():
 def classifyImage():
     # EC2 Update - Add error handling for production
     try:
-        image = flask.request.files['image']
-        image = image.read()
+    image = flask.request.files['image']
+    image = image.read()
 
-        image = np.fromstring(image,np.uint16)
+    image = np.fromstring(image,np.uint16)
 
-        image = cv2.imdecode(image,cv2.IMREAD_GRAYSCALE)
+    image = cv2.imdecode(image,cv2.IMREAD_GRAYSCALE)
 
         # EC2 Update - Use proper context manager for file operations
         # num = open("num.txt", "r").read()
@@ -84,32 +84,32 @@ def classifyImage():
         # EC2 Update - Use num_int instead of num string
         # fileName = f"driver_images/driver_image({num}).png"
         fileName = f"driver_images/driver_image({num_int}).png"
-        bucket = storage.bucket()
-        blob = bucket.blob(fileName)
-        blob.upload_from_filename(fileName)
-        blob.make_public()
+    bucket = storage.bucket()
+    blob = bucket.blob(fileName)
+    blob.upload_from_filename(fileName)
+    blob.make_public()
 
 
-        image_shaped = cv2.resize(image,(64, 64))
+    image_shaped = cv2.resize(image,(64, 64))
 
-        new_img = image_shaped.reshape(-1, 64, 64, 1)
+    new_img = image_shaped.reshape(-1, 64, 64, 1)
 
         # EC2 Update - Set verbose=0 for production (less logging noise)
         # y_prediction = model.predict(new_img, batch_size=40, verbose=1)
         y_prediction = model.predict(new_img, batch_size=40, verbose=0)
 
-        prediction = category_map.get('c{}'.format(np.argmax(y_prediction)))
+    prediction = category_map.get('c{}'.format(np.argmax(y_prediction)))
 
 
-        the_date = datetime.now().strftime("%m/%d/%Y") 
-        the_time = datetime.now().strftime("%H:%M:%S")
+    the_date = datetime.now().strftime("%m/%d/%Y") 
+    the_time = datetime.now().strftime("%H:%M:%S")
 
-        data = {
-            "date" : the_date,
-            "time" : the_time,
-            "image" : blob.public_url,
-            "classification" : prediction,
-        }
+    data = {
+        "date" : the_date,
+        "time" : the_time,
+        "image" : blob.public_url,
+        "classification" : prediction,
+    }
 
         # EC2 Update - Use num_int + 1 for incrementing
         # with open("num.txt",'w') as file:
@@ -117,9 +117,9 @@ def classifyImage():
         with open("num.txt",'w') as f:
             f.write(f"{num_int + 1}")
 
-        classifications.add(data)
+    classifications.add(data)
 
-        return json.dumps(data)
+    return json.dumps(data)
     
     # EC2 Update - Return proper error response
     except Exception as e:
