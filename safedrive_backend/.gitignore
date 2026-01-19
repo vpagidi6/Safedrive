@@ -9,4 +9,6 @@ env/
 num.txt
 driver_images/
 key.json
-distractedDrivingModels/
+distractedDrivingModel/
+*.pb
+variables/
