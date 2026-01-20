@@ -1,4 +1,5 @@
 import requests
+from time import sleep
 
 def send_image(img):
     url = "http://50.19.22.145:8000/classify-image"
@@ -21,4 +22,7 @@ def send_image(img):
 
     image_file.close()
 
-send_image("/Users/vamshipagidi/Development/Safedrive/demo/driver_images/driver_image(2).png")
+for i in range(0, 8):
+    path = f"/Users/vamshipagidi/Development/Safedrive/demo/driver_images/driver_image({i}).png"
+    send_image(path)
+    sleep(5)
