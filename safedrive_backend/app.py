@@ -50,6 +50,11 @@ category_map = {'c0': 'Safe driving',
 def home():
     return "safedrive home page"
 
+@app.route("/health")
+def health():
+    """Health check endpoint for load balancers and monitoring."""
+    return json.dumps({"status": "healthy", "service": "safedrive-api"}), 200
+
 # EC2 Update - Health check endpoint for load balancer monitoring
 @app.route("/health", methods=["GET"])
 def health():
