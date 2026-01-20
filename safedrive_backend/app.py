@@ -138,5 +138,4 @@ def classifyImage():
 if __name__ == '__main__':
     # EC2 Update - Listen on all interfaces (0.0.0.0) instead of local IP, disable debug for production
     # app.run(host="192.168.1.38", port=8000)
-    # For development only - use gunicorn in production
     app.run(host="0.0.0.0", port=8000, debug=False)
