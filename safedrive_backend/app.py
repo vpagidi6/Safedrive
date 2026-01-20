@@ -1,11 +1,8 @@
 import flask
 import cv2
-import matplotlib as plt
 from tensorflow import keras
 import numpy as np
 import json
-from PIL import Image
-from io import BytesIO
 from firebase_admin import credentials, firestore, initialize_app, storage
 from datetime import datetime
 import os
