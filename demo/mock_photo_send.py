@@ -21,4 +21,4 @@ def send_image(img):
 
     image_file.close()
 
-send_image("/Users/vamshipagidi/Development/Safedrive/demo/driver_images/driver_image(0).png")
+send_image("/Users/vamshipagidi/Development/Safedrive/demo/driver_images/driver_image(2).png")
