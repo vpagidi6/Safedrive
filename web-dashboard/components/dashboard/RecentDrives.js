@@ -31,11 +31,11 @@ export default function RecentDrives({ distractions }) {
       const dateB = parseDate(b.date);
       
       if (dateA.getTime() !== dateB.getTime()) {
-        // If dates are different, sort by date (newest first)
+        // If dates are different sort by date
         return dateB.getTime() - dateA.getTime();
       }
 
-      // If dates are the same, sort by time (newest first)
+      // If dates are the same sort by time
       const timeA = parseTime(a.time);
       const timeB = parseTime(b.time);
       
@@ -48,7 +48,7 @@ export default function RecentDrives({ distractions }) {
       className="bg-secondary rounded-lg p-4"
       style={{ padding: `${DEFAULT_PADDING}px` }}
     >
-      <h2 className="text-lg font-semibold mb-4">Recent Drives</h2>
+      <h2 className="text-lg font-semibold mb-4">Recent Events</h2>
       
       <div className="space-y-2">
         {/* Header Row */}
