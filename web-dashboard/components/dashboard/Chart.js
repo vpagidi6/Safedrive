@@ -9,7 +9,7 @@ export default function Chart({ data = [], total = 0 }) {
       <div className="relative" style={{ height: '200px' }}>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="text-2xl font-semibold">0</div>
-          <div className="text-sm text-white/70">distractions</div>
+          <div className="text-sm text-white/70">events</div>
         </div>
       </div>
     );
@@ -39,7 +39,7 @@ export default function Chart({ data = [], total = 0 }) {
       {/* Center Text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-3xl font-semibold">{total}</div>
-        <div className="text-sm text-white/70">distractions</div>
+        <div className="text-sm text-white/70">events</div>
       </div>
     </div>
   );
