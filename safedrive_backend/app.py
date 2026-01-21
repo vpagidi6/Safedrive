@@ -47,11 +47,6 @@ category_map = {'c0': 'Safe driving',
 def home():
     return "safedrive home page"
 
-@app.route("/health")
-def health():
-    """Health check endpoint for load balancers and monitoring."""
-    return json.dumps({"status": "healthy", "service": "safedrive-api"}), 200
-
 # EC2 Update - Health check endpoint for load balancer monitoring
 @app.route("/health", methods=["GET"])
 def health():
@@ -132,8 +127,6 @@ def classifyImage():
     # EC2 Update - Return proper error response
     except Exception as e:
         return json.dumps({"error": str(e)}), 500
-
-
 
 if __name__ == '__main__':
     # EC2 Update - Listen on all interfaces (0.0.0.0) instead of local IP, disable debug for production

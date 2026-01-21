@@ -3,24 +3,19 @@
 import { useEffect, useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import DashboardScreen from '@/components/dashboard/DashboardScreen';
-import { getDistractions } from '@/lib/api/distractions';
+import { subscribeToDistractions } from '@/lib/api/distractions';
 
 export default function Home() {
   const [distractions, setDistractions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchDistractions() {
-      try {
-        const data = await getDistractions();
-        setDistractions(data);
-      } catch (error) {
-        console.error('Error loading distractions:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchDistractions();
+    const unsubscribe = subscribeToDistractions((data) => {
+      setDistractions(data);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   if (loading) {

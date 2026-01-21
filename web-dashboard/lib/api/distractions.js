@@ -1,21 +1,18 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export async function getDistractions() {
-  try {
-    const querySnapshot = await getDocs(collection(db, 'classifications'));
+export function subscribeToDistractions(callback) {
+  return onSnapshot(collection(db, 'classifications'), (querySnapshot) => {
     const distractions = [];
-    
     querySnapshot.forEach((doc) => {
       distractions.push({
         id: doc.id,
         ...doc.data(),
       });
     });
-    
-    return distractions;
-  } catch (error) {
-    console.error('Error fetching distractions:', error);
-    return [];
-  }
+    callback(distractions);
+  }, (error) => {
+    console.error('Error subscribing to distractions:', error);
+    callback([]);
+  });
 }
