@@ -103,9 +103,11 @@ def classifyImage():
 
         prediction = category_map.get('c{}'.format(np.argmax(y_prediction)))
 
+        date_from_pi = flask.request.form.get('date')
+        time_from_pi = flask.request.form.get('time')
 
-        the_date = datetime.now().strftime("%m/%d/%Y") 
-        the_time = datetime.now().strftime("%H:%M:%S")
+        the_date = date_from_pi if date_from_pi else datetime.now().strftime("%m/%d/%Y")
+        the_time = time_from_pi if time_from_pi else datetime.now().strftime("%H:%M:%S")
 
         data = {
             "date" : the_date,
